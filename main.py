@@ -9,9 +9,13 @@ def caesar(start_text, shift_amount, cipher_direction):
     #Can you fix the code to keep the number/symbol/space when the text is encoded/decoded?
     #e.g. start_text = "meet me at 3"
     #end_text = "•••• •• •• 3"
-    position = alphabet.index(char)
-    new_position = position + shift_amount
-    end_text += alphabet[new_position]
+    if char.isalpha():
+      position = alphabet.index(char)
+      letter_position = position + shift_amount
+      new_position = alphabet[letter_position]
+    else:
+      new_position = char
+    end_text += new_position
     
   print(f"Here's the {cipher_direction}d result: {end_text}")
 
@@ -23,14 +27,19 @@ print(logo)
 #e.g. Type 'yes' if you want to go again. Otherwise type 'no'.
 #If they type 'yes' then ask them for the direction/text/shift again and call the caesar() function again?
 #Hint: Try creating a while loop that continues to execute the program if the user types 'yes'. 
+user_choise = 'yes'
 
-direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
-text = input("Type your message:\n").lower()
-shift = int(input("Type the shift number:\n")) % 26
+while user_choise == 'yes':
+  direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
+  text = input("Type your message:\n").lower()
+  shift = int(input("Type the shift number:\n")) % 26
+  caesar(start_text=text, shift_amount=shift, cipher_direction=direction)
+  user_choise = input("Type 'yes' if you want to go again. Otherwise type 'no'.\n").lower()
+else:
+  print("Goodbye")
 
-#TODO-2: What if the user enters a shift that is greater than the number of letters in the alphabet?
-#Try running the program and entering a shift number of 45.
-#Add some code so that the program continues to work even if the user enters a shift number greater than 26. 
-#Hint: Think about how you can use the modulus (%).
 
-caesar(start_text=text, shift_amount=shift, cipher_direction=direction)
+# #TODO-2: What if the user enters a shift that is greater than the number of letters in the alphabet?
+# #Try running the program and entering a shift number of 45.
+# #Add some code so that the program continues to work even if the user enters a shift number greater than 26. 
+# #Hint: Think about how you can use the modulus (%).
